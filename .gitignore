@@ -115,3 +115,6 @@ _testmain.go
 *.test
 *.prof
 
+
+output.txt
+Main
