@@ -2,6 +2,9 @@
 from copy import deepcopy
 from time import sleep
 import sys
+import numpy as np
+
+import datetime
 
 def solve(number, cur_list=None, exit_on_find=False):
     if cur_list is None:
@@ -65,7 +68,7 @@ def validate(result):
 def display(result):
     arr = [str(x) for x in result]
 
-    print("Found {{{}}}".format(", ".join(arr)))
+    #print("Found {{{}}}".format(", ".join(arr)))
     sys.stdout.flush()
 
 
@@ -82,9 +85,13 @@ def for_single(num, exit_on_find=False):
 
 def for_range(start, end, exit_on_find=False):
     for i in range(start, end +1):
-        #print("Looping for {}".format(i))
+        print("Looping for {}".format(i))
+        startTime = datetime.datetime.now()
         
         for_single(i, exit_on_find=exit_on_find)
+        endTime = datetime.datetime.now()
+
+        print("Took {} time. ".format(endTime - startTime))
         sleep(0.3)
 
 if __name__ == "__main__":
