@@ -59,8 +59,6 @@ func solve(number int, cur_list []int) []([]int){
 				}
 			}
 
-		}else {
-			continue
 		}
 
 
