@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 
@@ -71,12 +72,16 @@ func solve(number int, cur_list []int) []([]int){
 func solveForRange(min int, max int){
 	for i:= min; i <= max; i++{
 		debugPrint("Solving for ", i)
+		startTime := time.Now()
 		result := solve(i, nil)
+		duration := time.Since(startTime)
+
+		debugPrint("Calculated in", duration, "seconds")
 		debugPrint(len(result), "permutations found\n")
 	}
 }
 func main(){
 	fmt.Println("\n\nHello, Damodar!")
 
-	solveForRange(10, 15)
+	solveForRange(15, 15)
 }
