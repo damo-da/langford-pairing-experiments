@@ -5,6 +5,7 @@ import sys
 import numpy as np
 
 import datetime
+from timer_helpers import TimeoutError, timeout
 
 def solve(number, cur_list=None, exit_on_find=False):
     if cur_list is None:
@@ -37,7 +38,7 @@ def solve(number, cur_list=None, exit_on_find=False):
                     if exit_on_find:
                         return output
                 else:
-                    results = solve(number-1, new_list, exit_on_find=False)
+                    results = solve(number-1, new_list, exit_on_find=exit_on_find)
                     output += results
 
                     if len(results) > 0 and exit_on_find:
@@ -68,7 +69,7 @@ def validate(result):
 def display(result):
     arr = [str(x) for x in result]
 
-    #print("Found {{{}}}".format(", ".join(arr)))
+    print("Found {{{}}}".format(", ".join(arr)))
     sys.stdout.flush()
 
 
@@ -85,6 +86,8 @@ def for_single(num, exit_on_find=False):
 
 def for_range(start, end, exit_on_find=False):
     for i in range(start, end +1):
+        if i % 4 not in (0,3):
+            continue
         print("Looping for {}".format(i))
         startTime = datetime.datetime.now()
         
@@ -92,9 +95,37 @@ def for_range(start, end, exit_on_find=False):
         endTime = datetime.datetime.now()
 
         print("Took {} time. ".format(endTime - startTime))
-        sleep(0.3)
+        #sleep(0.3)
+
+
+def brutal_attack_like_vandal_savage(number):
+    """THIS IS SPARTAAAAAA!"""
+
+    @timeout(2)
+    def hululu_solve(number, m_list, exit_on_find=True):
+        """hululu hookah."""
+        return solve(number, m_list, exit_on_find=exit_on_find)
+
+    print("Solving for {}".format(number))
+    for index in range(0, number-1):
+        print("Working at index {}".format(index))
+
+        m_list = [0] * (number * 2)
+
+        m_list[index] = number
+        m_list[index + number + 1] = number
+
+        try:
+            result = hululu_solve(number - 1, m_list)
+            validate(result[0])
+            print(result[0])
+            return True
+        except TimeoutError:
+            print("TIMEOUT!!!@!!");
 
 if __name__ == "__main__":
-    for_range(1,12, exit_on_find=False)
+    #for_range(30,36, exit_on_find=True)
+    brutal_attack_like_vandal_savage(47)
+
     #for_single(3, False)
 
